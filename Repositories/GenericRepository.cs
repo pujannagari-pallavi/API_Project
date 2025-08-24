@@ -1,5 +1,5 @@
 ﻿using API_Project.Data;
-using API_Project.Interface; // <-- make sure this matches your interface namespace
+using API_Project.Interface; 
 using API_Project.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -53,3 +53,4 @@ namespace API_Project.Repositories
         }
     }
 }
+
