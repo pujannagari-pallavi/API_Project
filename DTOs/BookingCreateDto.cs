@@ -12,7 +12,8 @@ namespace API_Project.DTOs
         public TourPackageDto Package { get; set; }
         public UserDto User { get; set; }
 
-        // If you want to pass payment also:
+        
         public decimal Payment { get; set; }
     }
 }
+
