@@ -20,12 +20,8 @@ namespace API_Project.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // 🔐 Hash passwords ONCE here
+           
 
-
-            // -----------------------------
-            // 1️⃣ Configure Relationships
-            // -----------------------------
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Role)
                 .WithMany(r => r.Users)
@@ -71,10 +67,7 @@ namespace API_Project.Data
                 .Property(tp => tp.Price)
                 .HasPrecision(18, 2);
 
-            // -----------------------------
-            // 2️⃣ Seed Data
-            // -----------------------------
-
+           
             // Roles
             modelBuilder.Entity<Role>().HasData(
                 new Role { RoleId = 1, Name = "Admin" },
@@ -162,3 +155,4 @@ namespace API_Project.Data
 
 
     }
+
