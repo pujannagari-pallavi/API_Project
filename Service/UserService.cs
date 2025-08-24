@@ -32,7 +32,7 @@ namespace API_Project.Services
             {
                 UserName = dto.UserName,
                 Email = dto.Email,
-                PasswordHash = dto.Password, // store plain password
+                PasswordHash = dto.Password, 
                 RoleId = defaultRole.RoleId
             };
 
@@ -70,4 +70,5 @@ namespace API_Project.Services
         }
     }
 }
+
 
