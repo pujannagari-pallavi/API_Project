@@ -7,7 +7,8 @@
         public string Email { get; set; }
         public string RoleName { get; set; }
 
-        // ✅ Add this property to return JWT
+       
         public string Token { get; set; }
     }
 }
+
