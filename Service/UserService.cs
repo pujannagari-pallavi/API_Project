@@ -23,7 +23,7 @@ namespace API_Project.Services
             if (_userRepository.GetByEmail(dto.Email) != null)
                 throw new Exception("Email already exists!");
 
-            // ❌ No hashing — store plain password
+          
             var defaultRole = _roleRepository.GetByName("User");
             if (defaultRole == null)
                 throw new Exception("Default role 'User' not found. Please seed roles in DB.");
@@ -45,7 +45,7 @@ namespace API_Project.Services
             if (user == null)
                 return null;
 
-            // ❌ No BCrypt — just plain comparison
+          
             if (user.PasswordHash != dto.Password)
                 return null;
 
@@ -70,3 +70,4 @@ namespace API_Project.Services
         }
     }
 }
+
