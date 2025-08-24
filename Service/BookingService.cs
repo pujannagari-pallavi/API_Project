@@ -11,7 +11,7 @@ namespace API_Project.Services
     public class BookingService : IBookingService
     {
         private readonly IBookingRepository _bookingRepository;
-        private readonly ApplicationDbContext _context; // ✅ add DbContext
+        private readonly ApplicationDbContext _context; 
 
         public BookingService(IBookingRepository bookingRepository, ApplicationDbContext context)
         {
@@ -28,7 +28,7 @@ namespace API_Project.Services
         public Dictionary<DateTime, int> GetBookingsCountPerDate() =>
             _bookingRepository.GetBookingsCountPerDate();
 
-        // ✅ Fix: Resolve user by email using DbContext.Users
+       
         public int GetUserIdByEmail(string email)
         {
             var user = _context.Users.FirstOrDefault(u => u.Email == email);
@@ -39,3 +39,4 @@ namespace API_Project.Services
         }
     }
 }
+
