@@ -13,10 +13,7 @@ namespace API_Project.Repositories
         public PaymentRepository(ApplicationDbContext context) : base(context)
         {
         }
-
-        // -----------------------------
-        // Helper: Include all related entities
-        // -----------------------------
+        
         private IQueryable<Payment> IncludeAllRelations()
         {
             return _dbSet
@@ -25,46 +22,29 @@ namespace API_Project.Repositories
                 .Include(p => p.Booking)
                     .ThenInclude(b => b.User);
         }
-
-        // -----------------------------
-        // Get Payment by Id
-        // -----------------------------
-        public Payment GetById(int id)
+          
+         public Payment GetById(int id)
         {
             return IncludeAllRelations().FirstOrDefault(p => p.PaymentId == id);
         }
 
-        // -----------------------------
-        // Get all payments (for admin)
-        // -----------------------------
         public override IEnumerable<Payment> GetAll()
         {
             return IncludeAllRelations().ToList();
         }
-
-        // -----------------------------
-        // Get payments by status
-        // -----------------------------
         public IEnumerable<Payment> GetPaymentsByStatus(string status)
         {
             return IncludeAllRelations()
                    .Where(p => p.Status == status)
                    .ToList();
         }
-
-        // -----------------------------
-        // Get payments by date range
-        // -----------------------------
         public IEnumerable<Payment> GetPaymentsByDateRange(DateTime startDate, DateTime endDate)
         {
             return IncludeAllRelations()
                    .Where(p => p.PaidOn >= startDate && p.PaidOn <= endDate)
                    .ToList();
         }
-
-        // -----------------------------
-        // Get payments by method
-        // -----------------------------
+      
         public IEnumerable<Payment> GetPaymentsByMethod(string method)
         {
             return IncludeAllRelations()
@@ -72,17 +52,13 @@ namespace API_Project.Repositories
                    .ToList();
         }
 
-        // -----------------------------
-        // Get total revenue
-        // -----------------------------
+       
         public decimal GetTotalRevenue()
         {
             return _dbSet.Sum(p => p.Amount);
         }
 
-        // -----------------------------
-        // Get revenue by payment method
-        // -----------------------------
+        
         public decimal GetRevenueByMethod(string paymentMethod)
         {
             return _dbSet.Where(p => p.PaymentMethod == paymentMethod)
@@ -90,3 +66,4 @@ namespace API_Project.Repositories
         }
     }
 }
+
