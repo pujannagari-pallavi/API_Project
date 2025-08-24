@@ -18,7 +18,7 @@ namespace API_Project.Models
 
         [Required]
         
-        public string PasswordHash { get; set; } // store hashed password
+        public string PasswordHash { get; set; } 
 
         [Required]
         [ForeignKey("Role")]
@@ -30,3 +30,4 @@ namespace API_Project.Models
         public ICollection<Booking>? Bookings { get; set; }
     }
 }
+
