@@ -1,4 +1,4 @@
-﻿using API_Project.DTOs;
+using API_Project.DTOs;
 using API_Project.Interfaces;
 using API_Project.Models;
 using API_Project.Services;
@@ -113,6 +113,67 @@ namespace API_Project.Controllers
 
             _paymentService.Delete(id);
             return NoContent();
+        }
+
+        // -----------------------------
+        // CUSTOM METHODS
+        // -----------------------------
+
+        // Get Payments by Status
+        [HttpGet("status/{status}")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult GetByStatus(string status)
+        {
+            var payments = _paymentService.GetPaymentsByStatus(status)
+                .Where(p => p.Booking != null)
+                .Select(p => MapPaymentToDto(p, p.Booking))
+                .ToList();
+
+            return Ok(payments);
+        }
+
+        // Get Payments by Date Range
+        [HttpGet("date-range")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult GetByDateRange([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+        {
+            var payments = _paymentService.GetPaymentsByDateRange(startDate, endDate)
+                .Where(p => p.Booking != null)
+                .Select(p => MapPaymentToDto(p, p.Booking))
+                .ToList();
+
+            return Ok(payments);
+        }
+
+        // Get Total Revenue
+        [HttpGet("revenue/total")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult GetTotalRevenue()
+        {
+            var totalRevenue = _paymentService.GetTotalRevenue();
+            return Ok(new { TotalRevenue = totalRevenue });
+        }
+
+        // Get Revenue by Method
+        [HttpGet("revenue/method/{method}")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult GetRevenueByMethod(string method)
+        {
+            var revenue = _paymentService.GetRevenueByMethod(method);
+            return Ok(new { Method = method, Revenue = revenue });
+        }
+
+        // Get Payments by Method
+        [HttpGet("method/{method}")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult GetByMethod(string method)
+        {
+            var payments = _paymentService.GetPaymentsByMethod(method)
+                .Where(p => p.Booking != null)
+                .Select(p => MapPaymentToDto(p, p.Booking))
+                .ToList();
+
+            return Ok(payments);
         }
 
         // -----------------------------
